@@ -1,10 +1,9 @@
 'use client';
 
-import { createUserWithEmailAndPassword, sendEmailVerification, updateCurrentUser } from 'firebase/auth';
-import React, { useState } from 'react';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { useState } from 'react';
 import { Link } from "react-router-dom";
 import auth from '../firebase/firebase.init';
-import { CornerUpRight } from 'lucide-react';
 const UserIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>

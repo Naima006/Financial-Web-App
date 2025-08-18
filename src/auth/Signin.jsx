@@ -1,10 +1,7 @@
-"use client";
-
-import { createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
+import { sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
 import React, { useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import auth from "../firebase/firebase.init";
-//via gpt
-import { Link,useNavigate } from "react-router-dom";
 
 function Signin() {
   const [passwordVisible, setPasswordVisible] = React.useState(false);
@@ -23,10 +20,9 @@ function Signin() {
     const password = e.target.password.value;
     console.log(email,password)
 
-    //reset statnp
     setSuccess(false)
     setLoginError('');
-    //login user
+
     signInWithEmailAndPassword(auth,email,password)
     .then(result => {
       console.log(result.user)
