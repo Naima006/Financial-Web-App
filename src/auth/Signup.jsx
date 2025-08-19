@@ -92,11 +92,7 @@ const Signup = () => {
     const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{6,}$/;
     if(!passwordRegex.test(password)){
         setErrorMessage(
-          "Password must be at least 6 characters long, and include:\n" +
-          "• 1 uppercase letter\n" +
-          "• 1 lowercase letter\n" +
-          "• 1 number\n" +
-          "• 1 special character (!@#$%^&*)"
+          "Password must be 6 characters or more with combination of uppercase, lowercase, number, and special character."
         );
         return
     }
