@@ -1,5 +1,3 @@
-'use client';
-
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
 import { Link } from "react-router-dom";
@@ -93,7 +91,13 @@ const Signup = () => {
 
     const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{6,}$/;
     if(!passwordRegex.test(password)){
-        setErrorMessage('Example Valid: Mus@75')
+        setErrorMessage(
+          "Password must be at least 6 characters long, and include:\n" +
+          "• 1 uppercase letter\n" +
+          "• 1 lowercase letter\n" +
+          "• 1 number\n" +
+          "• 1 special character (!@#$%^&*)"
+        );
         return
     }
 
