@@ -1,5 +1,6 @@
 import { Route, Routes, useLocation } from "react-router-dom"
 import Dashboard from "./components/Dashboard"
+import JournalEntries from "./components/JournalEntries"
 import Navigation from "./components/Navigation"
 import { useAccountingData } from "./hooks/useAccountingData"
 
@@ -34,7 +35,18 @@ function App() {
               <Dashboard financialSummary={financialSummary} recentEntries={journalEntries.slice(-10).reverse()} />
             }
           />
-          
+          <Route
+            path="/journal-entries/*"
+            element={
+              <JournalEntries
+                journalEntries={journalEntries}
+                ledgers={ledgers}
+                onAddEntry={addJournalEntry}
+                onUpdateEntry={updateJournalEntry}
+                onDeleteEntry={deleteJournalEntry}
+              />
+            }
+          />
         </Routes>
       </main>
     </div>
