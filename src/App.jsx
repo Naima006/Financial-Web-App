@@ -1,6 +1,7 @@
 import { Route, Routes, useLocation } from "react-router-dom"
 import Dashboard from "./components/Dashboard"
 import JournalEntries from "./components/JournalEntries"
+import Ledger from "./components/Ledger"
 import Navigation from "./components/Navigation"
 import { useAccountingData } from "./hooks/useAccountingData"
 
@@ -47,6 +48,7 @@ function App() {
               />
             }
           />
+          <Route path="/ledger" element={<Ledger ledgers={ledgers} />} />
         </Routes>
       </main>
     </div>
