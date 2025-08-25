@@ -81,18 +81,18 @@ const Signup = () => {
     setErrorMessage('')
 
     if(password.length < 6){
-      setErrorMessage('Password Length Should Be 6 Character Or Longer')
+      setErrorMessage('Password length should be at least 6 characters or more.')
       return
     }
     if(!terms){
-      setErrorMessage('Please accept our conditions')
+      setErrorMessage('Please accept our terms & conditions')
       return
     }
 
     const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{6,}$/;
     if(!passwordRegex.test(password)){
         setErrorMessage(
-          "Password must be 6 characters or more with combination of uppercase, lowercase, number, and special character."
+          "Password must be 6 characters or more with a combination of uppercase, lowercase, number, and special character."
         );
         return
     }
