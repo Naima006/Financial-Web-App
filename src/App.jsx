@@ -3,6 +3,7 @@ import Dashboard from "./components/Dashboard"
 import JournalEntries from "./components/JournalEntries"
 import Ledger from "./components/Ledger"
 import Navigation from "./components/Navigation"
+import Payments from "./components/Payments"
 import Receipts from "./components/Receipts"
 import { useAccountingData } from "./hooks/useAccountingData"
 
@@ -51,6 +52,7 @@ function App() {
           />
           <Route path="/ledger" element={<Ledger ledgers={ledgers} />} />
           <Route path="/receipts" element={<Receipts onAddEntry={addJournalEntry} existingLedgers={ledgers} />} />
+          <Route path="/payments" element={<Payments onAddEntry={addJournalEntry} existingLedgers={ledgers} />} />
         </Routes>
       </main>
     </div>
