@@ -97,18 +97,12 @@ const Signup = () => {
         return
     }
 
-    //create user with email and password
     createUserWithEmailAndPassword(auth,email,password)
     .then(result => {
       console.log(result.user)
       setSuccess(true)
     })
 
-    //send verification email address
-    // sendEmailVerification(auth.currentUser)
-    // .then(() =>{
-    //   console.log('Verification Email Sent')
-    // })
     .catch(error => {
       console.log('ERROR', error)
       setErrorMessage(error.message)
