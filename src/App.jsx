@@ -5,6 +5,7 @@ import Ledger from "./components/Ledger"
 import Navigation from "./components/Navigation"
 import Payments from "./components/Payments"
 import Receipts from "./components/Receipts"
+import Reports from "./components/Reports"
 import { useAccountingData } from "./hooks/useAccountingData"
 
 function App() {
@@ -51,6 +52,10 @@ function App() {
             }
           />
           <Route path="/ledger" element={<Ledger ledgers={ledgers} />} />
+          <Route
+            path="/reports"
+            element={<Reports financialSummary={financialSummary} ledgers={ledgers} trialBalance={trialBalance} />}
+          />
           <Route path="/receipts" element={<Receipts onAddEntry={addJournalEntry} existingLedgers={ledgers} />} />
           <Route path="/payments" element={<Payments onAddEntry={addJournalEntry} existingLedgers={ledgers} />} />
         </Routes>
