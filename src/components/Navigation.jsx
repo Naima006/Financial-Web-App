@@ -11,7 +11,7 @@ const Navigation = () => {
     { path: "/journal-entries", label: "Journal Entries", icon: Plus },
     { path: "/ledger", label: "Ledger", icon: BookOpen },
     { path: "/reports", label: "Reports", icon: FileText },
-    { path: "/signin", label: "Sign Out", icon: User },
+    { path: "/", label: "Logout", icon: User },
   ]
 
   return (
