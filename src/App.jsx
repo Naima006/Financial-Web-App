@@ -1,5 +1,6 @@
 import { Route, Routes, useLocation } from "react-router-dom"
 import Dashboard from "./components/Dashboard"
+import Home from "./components/Home"
 import JournalEntries from "./components/JournalEntries"
 import Ledger from "./components/Ledger"
 import Navigation from "./components/Navigation"
@@ -23,18 +24,17 @@ function App() {
 
   const { processYearEnd } = useAccountingData()
 
+  const isLandingPage = location.pathname === "/"
+
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navigation />
+      {!isLandingPage && <Navigation />}
 
-      {/* Year End Button
-      <div className="relative">
-        <YearEndButton onProcessYearEnd={processYearEnd} />
-      </div> */}
-      <main className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+      <main className={!isLandingPage ? "max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8" : ""}>
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route
-            path="/*"
+            path="/dashboard"
             element={
               <Dashboard financialSummary={financialSummary} recentEntries={journalEntries.slice(-10).reverse()} />
             }
