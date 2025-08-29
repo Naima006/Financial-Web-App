@@ -1,12 +1,12 @@
-import { StrictMode } from "react"
-import { createRoot } from "react-dom/client"
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
-import App from "./App.jsx"
-import Signin from "./auth/Signin.jsx"
-import Signup from "./auth/Signup.jsx"
-import Home from "./components/Home.jsx"
-import ProtectedRoute from "./context/AuthContext.jsx"
-import "./index.css"
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import App from "./App.jsx";
+import Signin from "./auth/Signin.jsx";
+import Signup from "./auth/Signup.jsx";
+import Home from "./components/Home.jsx";
+import ProtectedRoute from "./context/AuthContext.jsx";
+import "./index.css";
 
 export default function FinanceFlowMain() {
   return (
@@ -33,8 +33,8 @@ export default function FinanceFlowMain() {
         </Routes>
       </BrowserRouter>
     </StrictMode>
-  )
+  );
 }
 
 // Render
-createRoot(document.getElementById("root")).render(<FinanceFlowMain />)
+createRoot(document.getElementById("root")).render(<FinanceFlowMain />);

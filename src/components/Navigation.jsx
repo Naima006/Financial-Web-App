@@ -1,8 +1,15 @@
-import { BookOpen, Calculator, CreditCard, FileText, Home, Plus, Receipt, User } from "lucide-react"
-import { Link, useLocation } from "react-router-dom"
+import { BookOpen, Calculator, CreditCard, FileText, Home, Plus, Receipt, User } from "lucide-react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import auth from "../firebase/firebase.init";
 
 const Navigation = () => {
-  const location = useLocation()
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleLogout = async () => {
+    await auth.signOut();
+    navigate("/"); // Redirect to landing page after logout
+  };
 
   const tabs = [
     { path: "/dashboard", label: "Dashboard", icon: Home },
@@ -11,8 +18,8 @@ const Navigation = () => {
     { path: "/journal-entries", label: "Journal Entries", icon: Plus },
     { path: "/ledger", label: "Ledger", icon: BookOpen },
     { path: "/reports", label: "Reports", icon: FileText },
-    { path: "/", label: "Logout", icon: User },
-  ]
+    { path: "/", label: "Logout", icon: User, onClick: handleLogout }, // Add onClick
+  ];
 
   return (
     <nav className="bg-white shadow-lg border-b border-gray-200">
@@ -27,9 +34,18 @@ const Navigation = () => {
 
           <div className="flex space-x-2">
             {tabs.map((tab) => {
-              const Icon = tab.icon
-              const isActive = location.pathname === tab.path
-              return (
+              const Icon = tab.icon;
+              const isActive = location.pathname === tab.path;
+              return tab.onClick ? (
+                <button
+                  key={tab.path}
+                  onClick={tab.onClick}
+                  className="flex items-center px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                >
+                  <Icon className="h-4 w-4 mr-2" />
+                  {tab.label}
+                </button>
+              ) : (
                 <Link
                   key={tab.path}
                   to={tab.path}
@@ -40,13 +56,13 @@ const Navigation = () => {
                   <Icon className="h-4 w-4 mr-2" />
                   {tab.label}
                 </Link>
-              )
+              );
             })}
           </div>
         </div>
       </div>
     </nav>
-  )
-}
+  );
+};
 
 export default Navigation;
