@@ -1,4 +1,4 @@
-import { BookOpen, Calculator, CreditCard, FileText, Home, Plus, Receipt, User } from "lucide-react";
+import { BookOpen, Calculator, CreditCard, FileText, Home, LogOutIcon, Plus, Receipt } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import auth from "../firebase/firebase.init";
 
@@ -8,7 +8,7 @@ const Navigation = () => {
 
   const handleLogout = async () => {
     await auth.signOut();
-    navigate("/"); // Redirect to landing page after logout
+    navigate("/");
   };
 
   const tabs = [
@@ -18,7 +18,7 @@ const Navigation = () => {
     { path: "/journal-entries", label: "Journal Entries", icon: Plus },
     { path: "/ledger", label: "Ledger", icon: BookOpen },
     { path: "/reports", label: "Reports", icon: FileText },
-    { path: "/", label: "Logout", icon: User, onClick: handleLogout }, // Add onClick
+    { path: "/", label: "Logout", icon: LogOutIcon, onClick: handleLogout },
   ];
 
   return (
