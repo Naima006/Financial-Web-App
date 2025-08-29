@@ -9,6 +9,7 @@ import NotFound from "./components/NotFound"
 import Payments from "./components/Payments"
 import Receipts from "./components/Receipts"
 import Reports from "./components/Reports"
+import Settings from "./components/Settings"
 import ProtectedRoute from "./context/AuthContext"
 import auth from "./firebase/firebase.init"
 import { useAccountingData } from "./hooks/useAccountingData"
@@ -29,7 +30,15 @@ function App() {
 
   const { processYearEnd } = useAccountingData()
 
-  const validAuthenticatedRoutes = ["/dashboard", "/journal-entries", "/ledger", "/reports", "/receipts", "/payments"]
+  const validAuthenticatedRoutes = [
+    "/dashboard",
+    "/journal-entries",
+    "/ledger",
+    "/reports",
+    "/receipts",
+    "/payments",
+    "/settings",
+  ]
   const isLandingPage = location.pathname === "/"
   const isExactValidRoute =
     validAuthenticatedRoutes.includes(location.pathname) || location.pathname.startsWith("/journal-entries/")
@@ -102,6 +111,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <Payments onAddEntry={addJournalEntry} existingLedgers={ledgers} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/settings"
+            element={
+              <ProtectedRoute>
+                <Settings financialSummary={financialSummary} ledgers={ledgers} trialBalance={trialBalance} />
               </ProtectedRoute>
             }
           />

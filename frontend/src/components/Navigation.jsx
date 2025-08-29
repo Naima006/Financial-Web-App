@@ -1,15 +1,8 @@
-import { BookOpen, Calculator, CreditCard, FileText, Home, LogOutIcon, Plus, Receipt } from "lucide-react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import auth from "../firebase/firebase.init";
+import { BookOpen, Calculator, CreditCard, FileText, Home, Plus, Receipt, Settings } from "lucide-react"
+import { Link, useLocation } from "react-router-dom"
 
 const Navigation = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  const handleLogout = async () => {
-    await auth.signOut();
-    navigate("/");
-  };
+  const location = useLocation()
 
   const tabs = [
     { path: "/dashboard", label: "Dashboard", icon: Home },
@@ -18,8 +11,8 @@ const Navigation = () => {
     { path: "/journal-entries", label: "Journal Entries", icon: Plus },
     { path: "/ledger", label: "Ledger", icon: BookOpen },
     { path: "/reports", label: "Reports", icon: FileText },
-    { path: "/", label: "Logout", icon: LogOutIcon, onClick: handleLogout },
-  ];
+    { path: "/settings", label: "Settings", icon: Settings },
+  ]
 
   return (
     <nav className="bg-white shadow-lg border-b border-gray-200">
@@ -28,24 +21,17 @@ const Navigation = () => {
           <div className="flex items-center">
             <div className="flex-shrink-0 flex items-center">
               <Calculator className="h-8 w-8 text-blue-600 mr-2" />
-              <a href="/"><h1 className="text-xl font-bold text-gray-900">FinanceFlow</h1></a>
+              <a href="/">
+                <h1 className="text-xl font-bold text-gray-900">FinanceFlow</h1>
+              </a>
             </div>
           </div>
 
           <div className="flex space-x-2">
             {tabs.map((tab) => {
-              const Icon = tab.icon;
-              const isActive = location.pathname === tab.path;
-              return tab.onClick ? (
-                <button
-                  key={tab.path}
-                  onClick={tab.onClick}
-                  className="flex items-center px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50"
-                >
-                  <Icon className="h-4 w-4 mr-2" />
-                  {tab.label}
-                </button>
-              ) : (
+              const Icon = tab.icon
+              const isActive = location.pathname === tab.path
+              return (
                 <Link
                   key={tab.path}
                   to={tab.path}
@@ -56,13 +42,13 @@ const Navigation = () => {
                   <Icon className="h-4 w-4 mr-2" />
                   {tab.label}
                 </Link>
-              );
+              )
             })}
           </div>
         </div>
       </div>
     </nav>
-  );
-};
+  )
+}
 
-export default Navigation;
+export default Navigation
