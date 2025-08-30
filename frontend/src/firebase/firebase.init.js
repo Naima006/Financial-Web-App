@@ -4,12 +4,12 @@ import { getAuth } from "firebase/auth";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBDEXHQ6OsBdKOeCL1NWytY88mBICnKkeI",
-  authDomain: "finance-flow-auth.firebaseapp.com",
-  projectId: "finance-flow-auth",
-  storageBucket: "finance-flow-auth.firebasestorage.app",
-  messagingSenderId: "352604781644",
-  appId: "1:352604781644:web:7237bab5920036d3de88e9"
+  apiKey: "AIzaSyA350EJ1nsLh7nTIkwgaPMony20OFT_JSw",
+  authDomain: "financeflow-user.firebaseapp.com",
+  projectId: "financeflow-user",
+  storageBucket: "financeflow-user.firebasestorage.app",
+  messagingSenderId: "977292837300",
+  appId: "1:977292837300:web:73e3e6644ca4194561b2e1"
 };
 
 // Initialize Firebase

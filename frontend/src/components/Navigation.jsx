@@ -1,4 +1,4 @@
-import { BookOpen, Calculator, CreditCard, FileText, Home, Plus, Receipt, Settings } from "lucide-react"
+import { BookOpen, Calculator, CreditCard, FileText, Home, Plus, Receipt, Settings, User } from "lucide-react"
 import { Link, useLocation } from "react-router-dom"
 import { useTheme } from "../context/ThemeContext"
 
@@ -14,6 +14,7 @@ const Navigation = () => {
     { path: "/ledger", label: "Ledger", icon: BookOpen },
     { path: "/reports", label: "Reports", icon: FileText },
     { path: "/settings", label: "Settings", icon: Settings },
+    { path: "/profile", label: "Profile", icon: User },
   ]
 
   return (
@@ -57,4 +58,4 @@ const Navigation = () => {
   )
 }
 
-export default Navigation
+export default Navigation;

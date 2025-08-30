@@ -7,6 +7,7 @@ import Ledger from "./components/Ledger"
 import Navigation from "./components/Navigation"
 import NotFound from "./components/NotFound"
 import Payments from "./components/Payments"
+import Profile from "./components/Profile"
 import Receipts from "./components/Receipts"
 import Reports from "./components/Reports"
 import Settings from "./components/Settings"
@@ -40,6 +41,7 @@ function AppContent() {
     "/receipts",
     "/payments",
     "/settings",
+    "/profile",
   ]
   const isLandingPage = location.pathname === "/"
   const isExactValidRoute =
@@ -123,6 +125,14 @@ function AppContent() {
             element={
               <ProtectedRoute>
                 <Settings financialSummary={financialSummary} ledgers={ledgers} trialBalance={trialBalance} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
               </ProtectedRoute>
             }
           />
