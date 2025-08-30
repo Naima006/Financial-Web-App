@@ -4,13 +4,14 @@ import "jspdf-autotable"
 import { Bell, BellOff, Download, Info, LogOut, Mail, Moon, SettingsIcon, Shield, Sun } from "lucide-react"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { useTheme } from "../context/ThemeContext"
 import auth from "../firebase/firebase.init"
 import { formatCurrency } from "../utils/accounting"
 import { exportToDOC, exportToPDF } from "../utils/trialBalanceExporter"
 
 const Settings = ({ financialSummary, ledgers, trialBalance }) => {
   const navigate = useNavigate()
-  const [theme, setTheme] = useState("light")
+  const { theme, toggleTheme, isDark } = useTheme()
   const [notifications, setNotifications] = useState({
     lowBalanceWarning: true,
     mismatchedEntries: true,
@@ -409,10 +410,6 @@ const Settings = ({ financialSummary, ledgers, trialBalance }) => {
     saveAs(blob, "balance_sheet.doc")
   }
 
-  const toggleTheme = () => {
-    setTheme(theme === "light" ? "dark" : "light")
-  }
-
   const toggleNotification = (type) => {
     setNotifications((prev) => ({
       ...prev,
@@ -421,14 +418,18 @@ const Settings = ({ financialSummary, ledgers, trialBalance }) => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
+    <div className={`max-w-4xl mx-auto space-y-6 ${isDark ? "text-white" : ""}`}>
       {/* Header */}
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+      <div
+        className={`rounded-lg shadow-sm border p-6 ${isDark ? "bg-gray-800 border-gray-700" : "bg-white border-gray-200"}`}
+      >
         <div className="flex items-center space-x-3">
           <SettingsIcon className="h-8 w-8 text-blue-600" />
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Settings</h1>
-            <p className="text-gray-600">Manage your account preferences and app settings</p>
+            <h1 className={`text-2xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}>Settings</h1>
+            <p className={`${isDark ? "text-gray-300" : "text-gray-600"}`}>
+              Manage your account preferences and app settings
+            </p>
           </div>
         </div>
       </div>
@@ -442,8 +443,10 @@ const Settings = ({ financialSummary, ledgers, trialBalance }) => {
       )}
 
       {/* General Preferences */}
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">General Preferences</h2>
+      <div
+        className={`rounded-lg shadow-sm border p-6 ${isDark ? "bg-gray-800 border-gray-700" : "bg-white border-gray-200"}`}
+      >
+        <h2 className={`text-lg font-semibold mb-4 ${isDark ? "text-white" : "text-gray-900"}`}>General Preferences</h2>
 
         <div className="flex items-center justify-between py-3">
           <div className="flex items-center space-x-3">
@@ -453,8 +456,8 @@ const Settings = ({ financialSummary, ledgers, trialBalance }) => {
               <Moon className="h-5 w-5 text-blue-500" />
             )}
             <div>
-              <p className="font-medium text-gray-900">Theme</p>
-              <p className="text-sm text-gray-600">Choose your preferred theme</p>
+              <p className={`font-medium ${isDark ? "text-white" : "text-gray-900"}`}>Theme</p>
+              <p className={`text-sm ${isDark ? "text-gray-300" : "text-gray-600"}`}>Choose your preferred theme</p>
             </div>
           </div>
           <button
@@ -473,8 +476,10 @@ const Settings = ({ financialSummary, ledgers, trialBalance }) => {
       </div>
 
       {/* Notifications */}
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">Notifications</h2>
+      <div
+        className={`rounded-lg shadow-sm border p-6 ${isDark ? "bg-gray-800 border-gray-700" : "bg-white border-gray-200"}`}
+      >
+        <h2 className={`text-lg font-semibold mb-4 ${isDark ? "text-white" : "text-gray-900"}`}>Notifications</h2>
 
         <div className="space-y-4">
           <div className="flex items-center justify-between py-3">
@@ -485,8 +490,10 @@ const Settings = ({ financialSummary, ledgers, trialBalance }) => {
                 <BellOff className="h-5 w-5 text-gray-400" />
               )}
               <div>
-                <p className="font-medium text-gray-900">Low Balance Warning</p>
-                <p className="text-sm text-gray-600">Get notified when account balances are low</p>
+                <p className={`font-medium ${isDark ? "text-white" : "text-gray-900"}`}>Low Balance Warning</p>
+                <p className={`text-sm ${isDark ? "text-gray-300" : "text-gray-600"}`}>
+                  Get notified when account balances are low
+                </p>
               </div>
             </div>
             <button
@@ -511,8 +518,10 @@ const Settings = ({ financialSummary, ledgers, trialBalance }) => {
                 <BellOff className="h-5 w-5 text-gray-400" />
               )}
               <div>
-                <p className="font-medium text-gray-900">Mismatched Debit/Credit</p>
-                <p className="text-sm text-gray-600">Alert when journal entries don't balance</p>
+                <p className={`font-medium ${isDark ? "text-white" : "text-gray-900"}`}>Mismatched Debit/Credit</p>
+                <p className={`text-sm ${isDark ? "text-gray-300" : "text-gray-600"}`}>
+                  Alert when journal entries don't balance
+                </p>
               </div>
             </div>
             <button
@@ -532,14 +541,18 @@ const Settings = ({ financialSummary, ledgers, trialBalance }) => {
       </div>
 
       {/* Data Management */}
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">Data Management</h2>
-        <p className="text-gray-600 mb-4">Export your accounting data in various formats</p>
+      <div
+        className={`rounded-lg shadow-sm border p-6 ${isDark ? "bg-gray-800 border-gray-700" : "bg-white border-gray-200"}`}
+      >
+        <h2 className={`text-lg font-semibold mb-4 ${isDark ? "text-white" : "text-gray-900"}`}>Data Management</h2>
+        <p className={`mb-4 ${isDark ? "text-gray-300" : "text-gray-600"}`}>
+          Export your accounting data in various formats
+        </p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {/* Trial Balance */}
-          <div className="border border-gray-200 rounded-lg p-4">
-            <h3 className="font-medium text-gray-900 mb-2">Trial Balance</h3>
+          <div className={`border rounded-lg p-4 ${isDark ? "border-gray-600" : "border-gray-200"}`}>
+            <h3 className={`font-medium mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>Trial Balance</h3>
             <div className="space-y-2">
               <button
                 onClick={() => handleExport("CSV", "Trial Balance")}
@@ -566,8 +579,8 @@ const Settings = ({ financialSummary, ledgers, trialBalance }) => {
           </div>
 
           {/* Income Statement */}
-          <div className="border border-gray-200 rounded-lg p-4">
-            <h3 className="font-medium text-gray-900 mb-2">Income Statement</h3>
+          <div className={`border rounded-lg p-4 ${isDark ? "border-gray-600" : "border-gray-200"}`}>
+            <h3 className={`font-medium mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>Income Statement</h3>
             <div className="space-y-2">
               <button
                 onClick={() => handleExport("CSV", "Income Statement")}
@@ -594,8 +607,8 @@ const Settings = ({ financialSummary, ledgers, trialBalance }) => {
           </div>
 
           {/* Balance Sheet */}
-          <div className="border border-gray-200 rounded-lg p-4">
-            <h3 className="font-medium text-gray-900 mb-2">Balance Sheet</h3>
+          <div className={`border rounded-lg p-4 ${isDark ? "border-gray-600" : "border-gray-200"}`}>
+            <h3 className={`font-medium mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>Balance Sheet</h3>
             <div className="space-y-2">
               <button
                 onClick={() => handleExport("CSV", "Balance Sheet")}
@@ -624,39 +637,51 @@ const Settings = ({ financialSummary, ledgers, trialBalance }) => {
       </div>
 
       {/* App Information */}
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">App Information</h2>
+      <div
+        className={`rounded-lg shadow-sm border p-6 ${isDark ? "bg-gray-800 border-gray-700" : "bg-white border-gray-200"}`}
+      >
+        <h2 className={`text-lg font-semibold mb-4 ${isDark ? "text-white" : "text-gray-900"}`}>App Information</h2>
 
         <div className="space-y-4">
-          <div className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer">
+          <div
+            className={`flex items-center space-x-3 p-3 rounded-lg cursor-pointer ${isDark ? "hover:bg-gray-700" : "hover:bg-gray-50"}`}
+          >
             <Info className="h-5 w-5 text-blue-600" />
             <div>
-              <p className="font-medium text-gray-900">About FinanceFlow</p>
-              <p className="text-sm text-gray-600">Version 1.0.0 - Professional accounting software</p>
+              <p className={`font-medium ${isDark ? "text-white" : "text-gray-900"}`}>About FinanceFlow</p>
+              <p className={`text-sm ${isDark ? "text-gray-300" : "text-gray-600"}`}>
+                Version 1.0.0 - Professional accounting software
+              </p>
             </div>
           </div>
 
-          <div className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer">
+          <div
+            className={`flex items-center space-x-3 p-3 rounded-lg cursor-pointer ${isDark ? "hover:bg-gray-700" : "hover:bg-gray-50"}`}
+          >
             <Shield className="h-5 w-5 text-green-600" />
             <div>
-              <p className="font-medium text-gray-900">Privacy Policy</p>
-              <p className="text-sm text-gray-600">Learn how we protect your data</p>
+              <p className={`font-medium ${isDark ? "text-white" : "text-gray-900"}`}>Privacy Policy</p>
+              <p className={`text-sm ${isDark ? "text-gray-300" : "text-gray-600"}`}>Learn how we protect your data</p>
             </div>
           </div>
 
-          <div className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer">
+          <div
+            className={`flex items-center space-x-3 p-3 rounded-lg cursor-pointer ${isDark ? "hover:bg-gray-700" : "hover:bg-gray-50"}`}
+          >
             <Mail className="h-5 w-5 text-purple-600" />
             <div>
-              <p className="font-medium text-gray-900">Contact Support</p>
-              <p className="text-sm text-gray-600">Get help with your account</p>
+              <p className={`font-medium ${isDark ? "text-white" : "text-gray-900"}`}>Privacy Policy</p>
+              <p className={`text-sm ${isDark ? "text-gray-300" : "text-gray-600"}`}>Get help with your account</p>
             </div>
           </div>
         </div>
       </div>
 
       {/* Logout Section */}
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">Account</h2>
+      <div
+        className={`rounded-lg shadow-sm border p-6 ${isDark ? "bg-gray-800 border-gray-700" : "bg-white border-gray-200"}`}
+      >
+        <h2 className={`text-lg font-semibold mb-4 ${isDark ? "text-white" : "text-gray-900"}`}>Account</h2>
 
         <button
           onClick={handleLogout}
@@ -670,4 +695,4 @@ const Settings = ({ financialSummary, ledgers, trialBalance }) => {
   )
 }
 
-export default Settings
+export default Settings;

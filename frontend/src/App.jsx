@@ -11,12 +11,14 @@ import Receipts from "./components/Receipts"
 import Reports from "./components/Reports"
 import Settings from "./components/Settings"
 import ProtectedRoute from "./context/AuthContext"
+import { ThemeProvider, useTheme } from "./context/ThemeContext"
 import auth from "./firebase/firebase.init"
 import { useAccountingData } from "./hooks/useAccountingData"
 
-function App() {
+function AppContent() {
   const location = useLocation()
   const [user, loading] = useAuthState(auth)
+  const { isDark } = useTheme()
   const {
     journalEntries,
     ledgers,
@@ -51,7 +53,9 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div
+      className={`min-h-screen ${!isLandingPage && user && isExactValidRoute ? (isDark ? "bg-gray-900" : "bg-gray-50") : "bg-gray-50"}`}
+    >
       {!isLandingPage && user && isExactValidRoute && <Navigation />}
 
       <main
@@ -125,6 +129,14 @@ function App() {
         </Routes>
       </main>
     </div>
+  )
+}
+
+function App() {
+  return (
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
   )
 }
 
