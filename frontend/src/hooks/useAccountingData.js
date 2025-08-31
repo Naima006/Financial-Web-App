@@ -22,7 +22,7 @@ export const useAccountingData = () => {
   // Load data from database on mount
   const fetchData = async () => {
     try {
-      const fetchResponse = await axios.get('http://localhost/financeflow/backend/journals.php');
+      const fetchResponse = await axios.get('http://localhost/Financial-Web-App/backend/journalsHandler.php');
       console.log("Raw Fetch response:", fetchResponse);
 
       if (fetchResponse.data) {
@@ -69,15 +69,17 @@ export const useAccountingData = () => {
     setFinancialSummary(newFinancialSummary);
   }, [journalEntries, isLoaded]);
 
-  const addJournalEntry = (entry) => {
-    console.log('Adding journal entry:', entry);
-    // Ensure the entry has a unique ID
-    const entryWithId = {
-      ...entry,
-      id: entry.id || uuidv4(),
-      createdAt: entry.createdAt || new Date().toISOString()
-    };
-    setJournalEntries(prev => [...prev, entryWithId]);
+  const addJournalEntry = async (entry) => {
+     try {
+          console.log('Adding journal entry:', entry);
+          const addResponse = await axios.post('http://localhost/Financial-Web-App/backend/journalsHandler.php',{entry});
+          console.log("Raw delete response:", addResponse);
+          fetchData();
+     }
+     catch (error) {
+          console.error("Error adding journal entry:", error);
+          alert("Failed to add entry. Please try again.");
+     }
   };
 
   const deleteJournalEntry = (id) => {
