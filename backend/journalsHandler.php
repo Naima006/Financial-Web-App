@@ -5,13 +5,27 @@ header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: *");
 
 
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+$method = $_SERVER['REQUEST_METHOD'];
+$data = json_decode(file_get_contents("php://input"));
+
+if ($method === 'OPTIONS') {
     http_response_code(200);
     exit();
 }
 
-$method = $_SERVER['REQUEST_METHOD'];
-$data = json_decode(file_get_contents("php://input"));
+if ($method === 'PUT' || $_method === 'POST') {
+
+    include("validateJournalEntries.php");
+    $validation = validateJournalEntries($data);
+    
+    if (!$validation["valid"]){
+        echo json_encode([
+            "status" => "error",
+            "errors" => $validation["errors"]
+        ]);
+        return;
+    }
+}
 
 
 switch ($method) {
