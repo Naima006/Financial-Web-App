@@ -75,7 +75,7 @@ function JournalEntries({ journalEntries, ledgers, onAddEntry, onUpdateEntry, on
       const groups = {}
 
       entries.forEach((entry) => {
-        const key = `${entry.date}|${entry.description}`
+        const key = entry.id
         if (!groups[key]) {
           groups[key] = {
             id: entry.id,
