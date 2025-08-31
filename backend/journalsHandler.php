@@ -27,6 +27,9 @@ switch ($method) {
         break;
 
     case "PUT":
+        include("updateJournalEntries.php");
+        updateJournalEntries($data);
+        echo json_encode(["message" => "Updated journal", "entry" => $data->entry]);
         break;
 
     case 'DELETE':
