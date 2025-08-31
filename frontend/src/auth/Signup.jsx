@@ -235,15 +235,6 @@ const Signup = () => {
             <div className="absolute inset-0 flex items-center">
               <span className="w-full border-t border-gray-200" />
             </div>
-            <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-white px-2 text-gray-500">Or continue with</span>
-            </div>
-          </div>
-          <div className="flex justify-center items-center ">
-            <button className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 border border-gray-200 bg-white hover:bg-gray-50 hover:text-gray-900 h-10 px-6 py-2 min-w-[150px]">
-              <GoogleIcon />
-              <span className="ml-2">Google</span>
-            </button>
           </div>
           <div className="text-center mt-6">
             <p className="text-sm text-gray-600 dark:text-gray-400">
