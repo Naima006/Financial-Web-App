@@ -33,6 +33,14 @@ switch ($method) {
         break;
 
     case 'DELETE':
+        include("deleteJournalEntry.php");
+        if (!$data || !isset($data->id)) {
+            http_response_code(400);
+            echo json_encode(["error" => "Missing journal ID"]);
+            break;
+        }
+        deleteJournalEntry($data);
+        echo json_encode(["message" => "Deleted journal", "id" => $data->id]);
         break;
 
     default:
