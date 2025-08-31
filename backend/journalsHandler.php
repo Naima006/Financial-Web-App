@@ -13,7 +13,7 @@ if ($method === 'OPTIONS') {
     exit();
 }
 
-if ($method === 'PUT' || $_method === 'POST') {
+if ($method === 'PUT' || $method === 'POST') {
 
     include("validateJournalEntries.php");
     $validation = validateJournalEntries($data);
@@ -26,6 +26,7 @@ if ($method === 'PUT' || $_method === 'POST') {
         return;
     }
 }
+
 
 
 switch ($method) {
