@@ -258,6 +258,3 @@ npm run preview
 * [ ] Mobile app (React Native)
 
 ---
-
-
-Do you also want me to shorten it into a **student-report-friendly version** (like 3–4 pages, concise but formal), so you can reuse it for your professor’s submission?
