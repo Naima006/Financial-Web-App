@@ -221,7 +221,7 @@ function JournalEntries({ journalEntries, ledgers, onAddEntry, onUpdateEntry, on
                                             <td className="px-3 py-2 text-right">{formatCurrency(t.debit)}</td>
                                             <td className="px-3 py-2 text-right">
                                               {formatCurrency(t.openingBalance || 0)}
-                                            </td>{" "}
+                                            </td>
                                             {/* Show OB */}
                                           </tr>
                                         ))}
