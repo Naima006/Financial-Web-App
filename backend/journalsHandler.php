@@ -21,6 +21,9 @@ switch ($method) {
         break;
 
     case "POST":
+        include("saveJournalEntries.php");
+        saveJournalEntries($data);
+        echo json_encode(["message" => "Added journal"]);
         break;
 
     case "PUT":
