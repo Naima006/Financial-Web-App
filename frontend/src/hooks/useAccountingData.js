@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { calculateFinancialSummary, generateLedgers, generateTrialBalance } from '../utils/accounting';
+import axios from "axios"
 
 const STORAGE_KEY = 'financeflow_journal_entries';
 
@@ -18,27 +19,40 @@ export const useAccountingData = () => {
   });
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Load data from localStorage on mount
-  useEffect(() => {
-    console.log('Loading data from localStorage...');
+  // Load data from database on mount
+  const fetchData = async () => {
     try {
-      const savedEntries = localStorage.getItem(STORAGE_KEY);
-      console.log('Raw localStorage data:', savedEntries);
-      if (savedEntries) {
-        const parsedEntries = JSON.parse(savedEntries);
+      const fetchResponse = await axios.get('http://localhost/financeflow/backend/journals.php');
+      console.log("Raw Fetch response:", fetchResponse);
+
+      if (fetchResponse.data) {
+        const parsedEntries = fetchResponse.data;
         console.log('Parsed entries:', parsedEntries);
+
+        console.log("Checking entry dates...");
+        parsedEntries.forEach((e, i) => {
+          const d = new Date(e.entry.date);
+          if (isNaN(d)) {
+            console.warn("Invalid date at index", i, "value:", e.entry.date);
+          }
+        });
+
         if (Array.isArray(parsedEntries)) {
-          setJournalEntries(parsedEntries);
-          console.log('Set journal entries:', parsedEntries);
+          const normalizedEntries = parsedEntries.map(e => e.entry);
+          setJournalEntries(normalizedEntries);
         }
       }
     } catch (error) {
-      console.error('Error loading journal entries from localStorage:', error);
-      // Clear corrupted data
-      localStorage.removeItem(STORAGE_KEY);
+      console.error('Error loading journal entries from backend:', error);
     }
     setIsLoaded(true);
-  }, []);
+  };
+
+  useEffect(() => {
+    console.log('Loading data from backend...');
+    fetchData();
+    }, []);
+
 
   // Update derived data when journal entries change
   useEffect(() => {
@@ -53,15 +67,6 @@ export const useAccountingData = () => {
     setLedgers(newLedgers);
     setTrialBalance(newTrialBalance);
     setFinancialSummary(newFinancialSummary);
-
-    // Save to localStorage with error handling
-    try {
-      console.log('Saving to localStorage:', journalEntries);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(journalEntries));
-      console.log('Successfully saved to localStorage');
-    } catch (error) {
-      console.error('Error saving journal entries to localStorage:', error);
-    }
   }, [journalEntries, isLoaded]);
 
   const addJournalEntry = (entry) => {
