@@ -2,9 +2,6 @@
 
 > A comprehensive web-based accounting application for small businesses, featuring journal entries, ledgers, trial balance, and financial reporting.
 
-[![Netlify Status]
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
 ## 🔗 Live Links
 
 * **Frontend (Production)**: [https://financeflow-web.netlify.app/](https://financeflow-web.netlify.app/)
