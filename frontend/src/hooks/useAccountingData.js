@@ -91,12 +91,18 @@ export const useAccountingData = () => {
   };
 
 
-  const updateJournalEntry = (updatedEntry) => {
-    setJournalEntries((prev) =>
-        prev.map((entry) =>
-            entry.id === updatedEntry.id ? updatedEntry : entry
-        )
-    );
+  const updateJournalEntry = async (entry) => {
+     if(entry.id === null){return}
+     try {
+          console.log('Updating journal entry:', entry);
+          const updateResponse = await axios.put('http://localhost/Financial-Web-App/backend/journalsHandler.php',{entry});
+          console.log("Raw Update response:", updateResponse);
+          fetchData();
+     }
+     catch (error) {
+          console.error("Error updating journal entry:", error);
+          alert("Failed to update entry. Please try again.");
+     }
   };
 
   const clearAllData = () => {
