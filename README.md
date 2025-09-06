@@ -258,3 +258,7 @@ npm run preview
 * [ ] Mobile app (React Native)
 
 ---
+
+## ©️ Copyright
+
+All rights reserved.
